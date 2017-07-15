@@ -1,5 +1,6 @@
-// import logo from "./logo.svg";
+// import checkboxDevice from "./checkboxDevice.png";
 import React, { Component } from "react";
+import StarRatings from './react-star-ratings';
 import "./devices.css";
 
 const notebooksList = [
@@ -44,30 +45,64 @@ const mobilePhonesList = [
     [ 10, "Huawei GR5 2017 Gold", "$308", 4.3 ],
 ];
 
+let device = "";
+
+class Raiting extends Component {
+    changeRating( newRating ) {
+        this.setState({
+            rating: newRating
+        });
+    }
+
+    render() {
+        // rating = 2;
+        return (
+            <StarRatings
+                rating={this.props.rating}
+                isSelectable={true}
+                isAggregateRating={false}
+                changeRating={this.changeRating}
+                numOfStars={ 5 }
+            />
+        );
+    }
+}
+
 class ProductTable extends Component{
     render(){
-        return (
-        <table className="productTable">
+        let table = null;
+        console.log("device=",device);
+        if (this.props.device) {   table =
+            <table className="productTable">
             <thead>
-                <tr>
-                    {Object.keys(this.props.device[0]).map((key,index)=>{return (
-                        <td>
-                            {this.props.device[0][key]}
-                        </td>
-                    )})}
-                </tr>
+            <tr>
+                <td className="idHeader">
+                    {this.props.device[0]["id"]}
+                </td>
+                <td className="nameHeader">
+                    {this.props.device[0]["name"]}
+                </td>
+                <td className="ratingHeader">
+                    {this.props.device[0]["rating"]}
+                </td>
+                <td className="priceHeader">
+                    {this.props.device[0]["price"]}
+                </td>
+            </tr>
             </thead>
             <tbody>
-                {this.props.device.slice(1).map((name)=>{return (
-                    <tr>
-                        <td>{name[0]}</td>
-                        <td>{name[1]}</td>
-                        <td>{name[2]}</td>
-                        <td>{name[3]}</td>
-                    </tr>)})
-                }
+            {this.props.device.slice(1).map((name)=>{return (
+                <tr key={name}>
+                    <td className="id">{name[0]}</td>
+                    <td className="name">{name[1]}</td>
+                    <td className="rating">{<Raiting rating={name[3]}/>}</td>
+                    <td className="price">{name[2]}</td>
+                </tr>)})
+            }
             </tbody>
-        </table>
+        </table>}
+        return (
+            table
         )
     }
 }
@@ -76,18 +111,17 @@ class Devices extends Component {
   render() {
     return (
         <div className="container">
-            <div className="productName">
+            <div className="productsName">
                 {this.props.devicesName.map((name)=>{
                     return (
-                        <div className="squared">
-                            <input type ="checkbox"  name="devices"/>
-                            <label htmlFor="devices"></label>
-                            <p>{name}</p>
+                        <div className="productName" key={name}>
+                            <input type ="checkbox" id={name} className="css-checkbox lrg" />
+                            <label htmlFor={name} className="css-label lrg labelDevice" onChange={console.log("click")}>{name}</label>
                         </div>)
                 })}
             </div>
             <div className="productTable">
-                <ProductTable device={tabletsList}/>
+                <ProductTable device={notebooksList}/>
             </div>
         </div>
     );

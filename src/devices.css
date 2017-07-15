@@ -2,96 +2,98 @@ input[type=checkbox] {
   visibility: hidden;
 }
 
-.squared {
-  width: 20px;
-  margin: 20px auto;
-  position: relative;
-  /*background-color: red;*/
+label {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-.squared label {
-  cursor: pointer;
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  top: 0;
-  border-radius: 4px;
-
-  -webkit-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
-  -moz-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
-  box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
-  background: #fcfff4;
-
-  background: -webkit-linear-gradient(to top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-  background: -moz-linear-gradient(to top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-  background: -o-linear-gradient(to top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-  background: -ms-linear-gradient(to top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-  background: linear-gradient(to top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#b3bead',GradientType=0 );
+input[type=checkbox].css-checkbox {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
 }
 
-.squared label:after {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-  filter: alpha(opacity=0);
-  opacity: 0;
-  content: '';
-  position: absolute;
-  width: 9px;
-  height: 5px;
-  background: transparent;
-  top: 4px;
-  right: 4px;
-  border: 3px solid #333;
-  border-top: none;
-  border-right: none;
-
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  transform: rotate(-45deg);
+input[type=checkbox].css-checkbox + label.css-label {
+    padding-left:20px;
+    height:15px;
+    display:inline-block;
+    line-height:15px;
+    background-repeat:no-repeat;
+    background-position: 0 0;
+    font-size:15px;
+    vertical-align:middle;
+    cursor:pointer;
 }
 
-.squared label:hover::after {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
-  filter: alpha(opacity=30);
-  opacity: 0.5;
+input[type=checkbox].css-checkbox:checked + label.css-label {
+    background-position: 0 -15px;
 }
 
-.squared input[type=checkbox]:checked + label:after {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-  filter: alpha(opacity=100);
-  opacity: 1;
+.labelDevice{
+    background-image: url(checkboxDevice.png);
+}
+
+input[type=checkbox].css-checkbox.lrg + label.css-label.lrg {
+    padding-left:22px;
+    height:20px;
+    display:inline-block;
+    line-height:20px;
+    background-repeat:no-repeat;
+    background-position: 0 0;
+    font-size:16px;
+    vertical-align:middle;
+    cursor:pointer;
+}
+
+input[type=checkbox].css-checkbox.lrg:checked + label.css-label.lrg{
+    background-position: 0 -20px;
 }
 
 .container{
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    width: 100%;
+    width: 80%;
+    margin: 50px auto;
 }
 
 .productTable{
-    -webkit-box-flex: 7;
-    -ms-flex: 7;
-    flex: 7;
+    -webkit-box-flex: 4;
+    -ms-flex: 4;
+    flex: 4;
 }
 
-.productName{
+.productsName{
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
 }
 
+.productName{
+    margin: 15px 0;
+    font-size: 20px;
+}
+
 thead{
     background-color: #49636D;
-    color: #fff;
+    color: #adadad;
+    font-weight: bold;
 }
 
 thead, tbody, td{
+    width: auto;
     border: 2px solid #888888;
     border-spacing: 0;
-    padding: 15px;
+    padding: 10px;
 }
 
 thead tr:first-child td:first-child {
@@ -113,3 +115,21 @@ tbody tr:last-child td:last-child {
 table{
     border-collapse: collapse;
 }
+
+.price, .rating, .id{
+    text-align: center;
+}
+
+.idHeader{
+    width: 8%;
+}
+
+.nameHeader{
+    width: 52%;
+}
+
+.ratingHeader, .priceHeader{
+    width: 20%;
+    text-align: center;
+}
+
