@@ -1,11 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import StarRatings from './react-star-ratings';
-import Devices from './devices';
-import registerServiceWorker from './registerServiceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+// import StarRatings from 'react-star-ratings';
+import Devices from "./devices";
+import registerServiceWorker from "./registerServiceWorker";
 
-const devicesName = ["Notebooks","Tablets","Mobile phones"];
+const devicesName = [["Notebooks","notebooksList"],["Tablets","tabletsList"],["Mobile phones","mobilePhonesList"]];
 
-ReactDOM.render(<div><Devices devicesName={devicesName}/></div>, document.getElementById("devices"));
+let stateIs = {
+    notebooksList:true,
+    tabletsList:false,
+    mobilePhonesList:false
+};
+
+ReactDOM.render(<div><Devices devicesName={[devicesName,stateIs]}/></div>, document.getElementById("devices"));
 registerServiceWorker();
