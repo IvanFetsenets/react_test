@@ -47,11 +47,11 @@ const mobilePhonesList = [
 	[ 10, "Huawei GR5 2017 Gold", "$308", 4.3 ],
 ];
 
-let stateIs = {
-        notebooksList:true,
-        tabletsList:false,
-        mobilePhonesList:false
-};
+// let stateIs = {
+//         notebooksList:true,
+//         tabletsList:false,
+//         mobilePhonesList:false
+// };
 
 let devices = [notebooksList,tabletsList,mobilePhonesList];
 
@@ -76,98 +76,96 @@ let devices = [notebooksList,tabletsList,mobilePhonesList];
 //     }
 // }
 
-class ProductTable extends Component{
-    consoleMy(message,value){
-        console.log(message,value);
+class ProductTable extends Component {
+    consoleMy(message, value) {
+        console.log(message, value);
     }
 
-    render(){
-        let arr = this.props.devices;
-		let table = null;
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         notebooksList: true,
+    //         tabletsList: true,
+    //         mobilePhonesList: true
+    //     };
+    // }
 
-		let tableHead =
-            <thead>
+    render(){
+            let arr = this.props.devices;
+            let table = null;
+
+            let tableHead =
+                <thead>
                 <tr>
                     <td className="idHeader">{arr[0][0]["id"]}</td>
                     <td className="nameHeader">{arr[0][0]["name"]}</td>
                     <td className="ratingHeader">{arr[0][0]["rating"]}</td>
                     <td className="priceHeader">{arr[0][0]["price"]}</td>
                 </tr>
-            </thead>;
+                </thead>;
 
-        let tableBody =arr.map((el,index)=>{
-            return(
-                arr[index].slice(1).map((val)=>{
-                       return(
-                        <tr key={val}>
-                            <td className="id">{val[0]}</td>
-                            <td className="name">{val[1]}</td>
-                            <td className="rating">{val[3]}</td>
-                            <td className="price">{val[2]}</td>
-                        </tr>
-                    );})
+            let tableBody = arr.map((el, index) => {
+                return (
+                    arr[index].slice(1).map((val) => {
+                        return (
+                            <tr key={val}>
+                                <td className="id">{val[0]}</td>
+                                <td className="name">{val[1]}</td>
+                                <td className="rating">{val[3]}</td>
+                                <td className="price">{val[2]}</td>
+                            </tr>
+                        );
+                    })
 
-            );
-        });
+                );
+            });
 
-		if (this.props.devices) {table =
-                <table className="productTable">
-                    {tableHead}
-                    <tbody>
+            if (this.props.devices) {
+                table =
+                    <table className="productTable">
+                        {tableHead}
+                        <tbody>
                         {tableBody}
-                    </tbody>
-                </table>;
-		}
-		return (
-			table
-		);
-	}
+                        </tbody>
+                    </table>;
+            }
+            return (
+                table
+            );
+        }
+
 }
 
 class Devices extends Component {
     consoleMy(message,value){
         console.log(message,value);
     }
-	// constructor(props) {
-	// 	super(props);
-	// 	this.state = {
-	// 	    notebooksList:true,
-     //        tabletsList:false,
-     //        mobilePhonesList:false
-	// 	};
-     //    this.changeCheckbox = this.changeCheckbox.bind(this);
-	// }
-
-    // myState(property){
-    //     stateIs = {
-    //         notebooksList:true,
-    //         tabletsList:false,
-    //         mobilePhonesList:false
-    //     };
-    // }
-
-	changeCheckbox(id){
-	    let componentState = this.props.devicesName[1];
-        // console.log("componentState=",componentState);
-	    // console.log("id=",id.name[1]);
-	    let val = id.name[1];
-	    // this.setState({val : !this.state.val});
-	    // this.state.checkBox.first = false;
-        // console.log("aaa=",this.state.checkBox);
-        // console.log("aabb=",this.state.checkBox.first);
+	constructor(props) {
+		super(props);
+		this.state = {
+		    notebooksList:true,
+            tabletsList:false,
+            mobilePhonesList:false
+		};
+        this.changeCheckbox = this.changeCheckbox.bind(this);
 	}
 
+	changeCheckbox(event){
+        // this.consoleMy("event.target.id=",event.target.id);
+        this.setState({[event.target.id]: !this.state[event.target.id]});
+        // this.consoleMy("this.state=",this.state);
+	}
+
+
 	render() {
-	    let checkState = this.props.devicesName;
-	    // console.log("checkState=",checkState);
+        let checkState = this.state;
 		return (
 			<div className="container">
 				<div className="productsName">
 					{this.props.devicesName.map((name)=>{
-						this.consoleMy("name=",name);
 						return (
 							<div className="productName" key={name[1]}>
-								<input type ="checkbox" id={name[1]} name={name[1]} className="css-checkbox lrg"  onClick={this.changeCheckbox({name})}/>
+								<input type ="checkbox" id={name[1]} name={name[1]} className="css-checkbox lrg" defaultChecked={checkState[name[1]]} onClick={this.changeCheckbox}/>
 								<label htmlFor={name[0]} className="css-label lrg labelDevice">{name[0]}</label>
 							</div>);
 					})}
