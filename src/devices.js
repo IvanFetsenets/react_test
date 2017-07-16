@@ -77,39 +77,51 @@ let devices = [notebooksList,tabletsList,mobilePhonesList];
 // }
 
 class ProductTable extends Component{
+    consoleMy(message,value){
+        console.log(message,value);
+    }
+
     render(){
         let arr = this.props.devices;
+        // console.log("arr=",arr);
 		let table = null;
-		if (this.props.devices) {
-		    table =
-                <table className="productTable">
-                    <thead>
-                        <tr>
-                            <td className="idHeader">
-                                {arr[0][0]["id"]}
-                            </td>
-                            <td className="nameHeader">
-                                {arr[0][0]["name"]}
-                            </td>
-                            <td className="ratingHeader">
-                                {arr[0][0]["rating"]}
-                            </td>
-                            <td className="priceHeader">
-                                {arr[0][0]["price"]}
-                            </td>
+		// let tableBody = null;
+
+		let tableHead =
+            <thead>
+                <tr>
+                    <td className="idHeader">{arr[0][0]["id"]}</td>
+                    <td className="nameHeader">{arr[0][0]["name"]}</td>
+                    <td className="ratingHeader">{arr[0][0]["rating"]}</td>
+                    <td className="priceHeader">{arr[0][0]["price"]}</td>
+                </tr>
+            </thead>;
+
+        let tableBody =arr.map((el,index)=>{
+            this.consoleMy("arr[index]",arr[index]);
+            this.consoleMy("el",el);
+            return(
+                arr[index].slice(1).map((val)=>{
+                    this.consoleMy("val=",val);
+                    this.consoleMy("index=",index);
+                    return(
+                        <tr key={val}>
+                            <td className="id">{val[0]}</td>
+                            <td className="name">{val[1]}</td>
+                            <td className="rating">{val[3]}</td>
+                            <td className="price">{val[2]}</td>
                         </tr>
-                    </thead>
-                    {/*<tbody>*/}
-                    {/*{this.props.devices[0].slice(1).map((name)=>{return (*/}
-                        {/*<tr key={name}>*/}
-                            {/*<td className="id">{name[0]}</td>*/}
-                            {/*<td className="name">{name[1]}</td>*/}
-                            {/*/!*<td className="rating">{<Raiting rating={name[3]}/>}</td>*!/*/}
-                            {/*<td className="rating">{name[3]}</td>*/}
-                            {/*<td className="price">{name[2]}</td>*/}
-                        {/*</tr>);})*/}
-                    {/*})}*/}
-                    {/*</tbody>*/}
+                    );})
+
+            );
+        });
+
+		if (this.props.devices) {table =
+                <table className="productTable">
+                    {tableHead}
+                    <tbody>
+                        {tableBody}
+                    </tbody>
                 </table>;
 		}
 		return (
@@ -139,8 +151,8 @@ class Devices extends Component {
 
 	changeCheckbox(id){
 	    let componentState = this.props.devicesName[1];
-        console.log("componentState=",componentState);
-	    console.log("id=",id.name[1]);
+        // console.log("componentState=",componentState);
+	    // console.log("id=",id.name[1]);
 	    let val = id.name[1];
 	    // this.setState({val : !this.state.val});
 	    // this.state.checkBox.first = false;
@@ -149,15 +161,15 @@ class Devices extends Component {
 	}
 
 	render() {
-	    let checkState = this.props.devicesName[1];
-	    console.log("checkState=",checkState);
+	    let checkState = this.props.devicesName;
+	    // console.log("checkState=",checkState);
 		return (
 			<div className="container">
 				<div className="productsName">
-					{this.props.devicesName[0].map((name)=>{
+					{this.props.devicesName.map((name)=>{
 						return (
 							<div className="productName" key={name[1]}>
-								<input type ="checkbox" id={name[1]}  name = {name[1]} className="css-checkbox lrg" defaultChecked={checkState[name[1]]} onClick={this.changeCheckbox({name})}/>
+								<input type ="checkbox" id={name[1]}  name={name[1]} className="css-checkbox lrg" defaultChecked={checkState[name[1]]} onClick={this.changeCheckbox({name})}/>
 								<label htmlFor={name[0]} className="css-label lrg labelDevice" >{name[0]}</label>
 							</div>);
 					})}

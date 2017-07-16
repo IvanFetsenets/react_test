@@ -7,11 +7,7 @@ import registerServiceWorker from "./registerServiceWorker";
 
 const devicesName = [["Notebooks","notebooksList"],["Tablets","tabletsList"],["Mobile phones","mobilePhonesList"]];
 
-let stateIs = {
-    notebooksList:true,
-    tabletsList:false,
-    mobilePhonesList:false
-};
+// let stateIs = {notebooksList:true,tabletsList:false,mobilePhonesList:false};
 
-ReactDOM.render(<div><Devices devicesName={[devicesName,stateIs]}/></div>, document.getElementById("devices"));
+ReactDOM.render(<div><Devices devicesName={devicesName}/></div>, document.getElementById("devices"));
 registerServiceWorker();
