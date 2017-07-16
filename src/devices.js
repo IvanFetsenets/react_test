@@ -1,8 +1,8 @@
 /* eslint-disable indent */
 // import checkboxDevice from "./checkboxDevice.png";
-// import StarRatings from "react-star-ratings";
-import React, { Component } from "react";
 
+// import LinkedStateMixin from 'react-addons-linked-state-mixin';
+import React, { Component } from "react";
 import "./devices.css";
 
 const notebooksList = [
@@ -83,9 +83,7 @@ class ProductTable extends Component{
 
     render(){
         let arr = this.props.devices;
-        // console.log("arr=",arr);
 		let table = null;
-		// let tableBody = null;
 
 		let tableHead =
             <thead>
@@ -98,13 +96,9 @@ class ProductTable extends Component{
             </thead>;
 
         let tableBody =arr.map((el,index)=>{
-            this.consoleMy("arr[index]",arr[index]);
-            this.consoleMy("el",el);
             return(
                 arr[index].slice(1).map((val)=>{
-                    this.consoleMy("val=",val);
-                    this.consoleMy("index=",index);
-                    return(
+                       return(
                         <tr key={val}>
                             <td className="id">{val[0]}</td>
                             <td className="name">{val[1]}</td>
@@ -131,6 +125,9 @@ class ProductTable extends Component{
 }
 
 class Devices extends Component {
+    consoleMy(message,value){
+        console.log(message,value);
+    }
 	// constructor(props) {
 	// 	super(props);
 	// 	this.state = {
@@ -167,10 +164,11 @@ class Devices extends Component {
 			<div className="container">
 				<div className="productsName">
 					{this.props.devicesName.map((name)=>{
+						this.consoleMy("name=",name);
 						return (
 							<div className="productName" key={name[1]}>
-								<input type ="checkbox" id={name[1]}  name={name[1]} className="css-checkbox lrg" defaultChecked={checkState[name[1]]} onClick={this.changeCheckbox({name})}/>
-								<label htmlFor={name[0]} className="css-label lrg labelDevice" >{name[0]}</label>
+								<input type ="checkbox" id={name[1]} name={name[1]} className="css-checkbox lrg"  onClick={this.changeCheckbox({name})}/>
+								<label htmlFor={name[0]} className="css-label lrg labelDevice">{name[0]}</label>
 							</div>);
 					})}
 				</div>

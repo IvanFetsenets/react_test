@@ -1,5 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import StarRatings from "react-star-ratings";
+
+
+
 import "./index.css";
 // import StarRatings from 'react-star-ratings';
 import Devices from "./devices";
