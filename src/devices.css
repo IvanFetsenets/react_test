@@ -1,63 +1,3 @@
-/*input[type=checkbox] {*/
-  /*visibility: hidden;*/
-/*}*/
-
-/*label {*/
-    /*-webkit-touch-callout: none;*/
-    /*-webkit-user-select: none;*/
-    /*-khtml-user-select: none;*/
-    /*-moz-user-select: none;*/
-    /*-ms-user-select: none;*/
-    /*user-select: none;*/
-/*}*/
-
-/*input[type=checkbox].css-checkbox {*/
-    /*position: absolute;*/
-    /*overflow: hidden;*/
-    /*clip: rect(0 0 0 0);*/
-    /*height: 1px;*/
-    /*width: 1px;*/
-    /*margin: -1px;*/
-    /*padding: 0;*/
-    /*border: 0;*/
-/*}*/
-
-/*input[type=checkbox].css-checkbox + label.css-label {*/
-    /*padding-left:20px;*/
-    /*height:15px;*/
-    /*display:inline-block;*/
-    /*line-height:15px;*/
-    /*background-repeat:no-repeat;*/
-    /*background-position: 0 0;*/
-    /*font-size:15px;*/
-    /*vertical-align:middle;*/
-    /*cursor:pointer;*/
-/*}*/
-
-/*input[type=checkbox].css-checkbox:checked + label.css-label {*/
-    /*background-position: 0 -15px;*/
-/*}*/
-
-/*.labelDevice{*/
-    /*background-image: url(checkboxDevice.png);*/
-/*}*/
-
-/*input[type=checkbox].css-checkbox.lrg + label.css-label.lrg {*/
-    /*padding-left:22px;*/
-    /*height:20px;*/
-    /*display:inline-block;*/
-    /*line-height:20px;*/
-    /*background-repeat:no-repeat;*/
-    /*background-position: 0 0;*/
-    /*font-size:16px;*/
-    /*vertical-align:middle;*/
-    /*cursor:pointer;*/
-/*}*/
-
-/*input[type=checkbox].css-checkbox.lrg:checked + label.css-label.lrg{*/
-    /*background-position: 0 -20px;*/
-/*}*/
-
 .container{
     display: -webkit-box;
     display: -ms-flexbox;
@@ -66,54 +6,72 @@
     margin: 50px auto;
 }
 
+
+
 .productTable{
     -webkit-box-flex: 4;
     -ms-flex: 4;
     flex: 4;
+    border-collapse: separate;
 }
 
 .productsName{
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
+
 }
 
 .productName{
     margin: 15px 0;
-    font-size: 20px;
+    font-size: 16px;
 }
 
-thead{
-    background-color: #49636D;
-    color: #adadad;
-    font-weight: bold;
+.productName:first-child{
+    margin-top: 0;
 }
 
-thead, tbody, td{
+td, tr{
     width: auto;
-    border: 2px solid #888888;
-    border-spacing: 0;
     padding: 10px;
+    border: 2px solid #888888;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 thead tr:first-child td:first-child {
-    border-top-left-radius: 10px;
+    border-top-left-radius: 5px;
 }
 
-thead tr:last-child td:last-child {
-    border-top-right-radius: 10px;
+thead tr:first-child td:last-child {
+    border-top-right-radius: 5px;
 }
 
 tbody tr:last-child td:first-child {
-    border-bottom-left-radius: 10px;
+    border-bottom-left-radius: 5px;
 }
 
 tbody tr:last-child td:last-child {
-    border-bottom-right-radius: 10px;
+    border-bottom-right-radius: 5px;
+}
+
+td, tr{
+    width: auto;
+    padding: 10px;
+    border: 1px solid #888888;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 table{
     border-collapse: collapse;
+    border-spacing: 0;
+    }
+
+thead{
+    background-color: #49636D;
+    color: #e2e2e2;
+    font-weight: bold;
 }
 
 .price, .rating, .id{
@@ -131,5 +89,9 @@ table{
 .ratingHeader, .priceHeader{
     width: 20%;
     text-align: center;
+}
+
+.idHeader:hover, .nameHeader:hover, .ratingHeader:hover, .priceHeader:hover{
+    cursor: pointer;
 }
 

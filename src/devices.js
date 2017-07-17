@@ -1,7 +1,3 @@
-/* eslint-disable indent */
-// import checkboxDevice from "./checkboxDevice.png";
-
-// import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import React, { Component } from "react";
 import "./devices.css";
 
@@ -49,146 +45,106 @@ const mobilePhonesList = [
 
 let myList = {"notebooksList":notebooksList, "tabletsList":tabletsList, "mobilePhonesList":mobilePhonesList};
 
-let devices = [notebooksList,tabletsList,mobilePhonesList];
-
-// class Raiting extends Component {
-//     changeRating( newRating ) {
-//         this.setState({
-//             rating: newRating
-//         });
-//     }
-//
-//     render() {
-//         // rating = 2;
-//         return (
-//             <StarRatings
-//                 rating={this.props.rating}
-//                 isSelectable={true}
-//                 isAggregateRating={false}
-//                 changeRating={this.changeRating}
-//                 numOfStars={ 5 }
-//             />
-//         );
-//     }
-// }
-
 class ProductTable extends Component {
-    consoleMy(message, value) {
-        console.log(message, value);
+    constructor(props){
+        super(props);
+        this.state = { /*параметри сортування*/};
+        this.sortedCol=this.sortedCol.bind(this);
     }
 
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         notebooksList: true,
-    //         tabletsList: true,
-    //         mobilePhonesList: true
-    //     };
-    // }
+    sortedCol(event){
+        // let arrIn = this.props.devices;
+        // let column = event.target.className;
+        // let arrOut = arrIn.slice(1).sort(function(a,b){/* функція для сортування*/
+        //     });
+	}
 
     render(){
             let arr = this.props.devices;
-            // this.consoleMy("arr111=", this.props.devices);
             let table = null;
-
             let tableHead =
                 <thead>
                     <tr>
-                        <td className="idHeader">{arr[0]["id"]}</td>
-                        <td className="nameHeader">{arr[0]["name"]}</td>
-                        <td className="ratingHeader">{arr[0]["rating"]}</td>
-                        <td className="priceHeader">{arr[0]["price"]}</td>
+                        <td className="idHeader" onClick={this.sortedCol}>{arr[0]["id"]}</td>
+                        <td className="nameHeader" onClick={this.sortedCol}>{arr[0]["name"]}</td>
+                        <td className="ratingHeader" onClick={this.sortedCol}>{arr[0]["rating"]}</td>
+                        <td className="priceHeader" onClick={this.sortedCol}>{arr[0]["price"]}</td>
                     </tr>
                 </thead>;
 
                 let tableBody =
-
-                        arr.slice(1).map((el, index) => {
-                        this.consoleMy("arr222=", arr.slice(1));
-                        this.consoleMy("index", index);
+					<tbody>
+					{arr.slice(1).map((el, index) => {
                         return (
-                            arr.slice(1)[index].map(function(val){
+                            arr.slice(1)[index].map(function (val) {
                                 return (
-                                    <tr key={val}>
-                                        <td className="id">{val[0]}</td>
-                                        <td className="name">{val[1]}</td>
-                                        <td className="rating">{val[3]}</td>
-                                        <td className="price">{val[2]}</td>
-                                    </tr>
+									<tr key={val}>
+										<td className="id">{val[0]}</td>
+										<td className="name">{val[1]}</td>
+										<td className="rating">{val[3]}</td>
+										<td className="price">{val[2]}</td>
+									</tr>
                                 );
                             }));
-                        });
+                    })}
+                    </tbody>;
 
             if (this.props.devices) {
                 table =
                     <table className="productTable">
                         {tableHead}
-                        <tbody>
+
                             {tableBody}
-                        </tbody>
+
                     </table>;
             }
             return (
                 table
             );
         }
-
 }
 
 class Devices extends Component {
-    consoleMy(message,value){
-        console.log(message,value);
-    }
 	constructor(props) {
 		super(props);
 		this.state = {
 		    notebooksList:true,
-            tabletsList:true,
+            tabletsList:false,
             mobilePhonesList:false
 		};
         this.changeCheckbox = this.changeCheckbox.bind(this);
 	}
 
 	changeCheckbox(event){
-        // this.consoleMy("event.target.id=",event.target.id);
         this.setState({[event.target.id]: !this.state[event.target.id]});
-        // this.consoleMy("this.state=",this.state);
 	}
-
 
 	render() {
 	    let headerTable = notebooksList[0];
-        let devices2 = [];
-        devices2.push(headerTable);
-        // this.consoleMy("myList=",myList);
-        // let stateSas = this.state;
+        let devices = [];
+        devices.push(headerTable);
         let checkState = this.state;
-        // let newArr = this.props.devicesName;
         Object.keys(checkState).map(function(el){ if(checkState[el]){
-            devices2.push(myList[el].slice(1));
-        } return devices2;
-        // return console.log("xxx",checkState[el]);});
-        // return console.log("devices2",devices2);
+            devices.push(myList[el].slice(1));
+        } return devices;
         });
-        // this.consoleMy("Object.keys(this.state)=",Object.keys(this.state));
-        // newArr.map((el,index)=>{if(newArr[index][2]==)});
-        // this.consoleMy("this.props.devicesName=",this.props.devicesName);
-        // let checkState = this.state;
-        // this.consoleMy("aaa=",checkState);
-        // this.consoleMy("notebooksList=",notebooksList);
 		return (
 			<div className="container">
 				<div className="productsName">
 					{this.props.devicesName.map((name)=>{
 						return (
 							<div className="productName" key={name[1]}>
-								<input type ="checkbox" id={name[1]} name={name[1]} className="css-checkbox lrg" defaultChecked={checkState[name[1]]} onClick={this.changeCheckbox}/>
+								<input type ="checkbox"
+									   id={name[1]} name={name[1]}
+									   className="css-checkbox lrg"
+									   defaultChecked={checkState[name[1]]}
+									   onClick={this.changeCheckbox}/>
 								<label htmlFor={name[0]} className="css-label lrg labelDevice">{name[0]}</label>
 							</div>);
 					})}
 				</div>
 				<div className="productTable">
-					<ProductTable devices={devices2}/>
+					<ProductTable devices={devices}/>
 				</div>
 			</div>
 		);
