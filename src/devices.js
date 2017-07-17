@@ -47,11 +47,7 @@ const mobilePhonesList = [
 	[ 10, "Huawei GR5 2017 Gold", "$308", 4.3 ],
 ];
 
-// let stateIs = {
-//         notebooksList:true,
-//         tabletsList:false,
-//         mobilePhonesList:false
-// };
+let myList = {"notebooksList":notebooksList, "tabletsList":tabletsList, "mobilePhonesList":mobilePhonesList};
 
 let devices = [notebooksList,tabletsList,mobilePhonesList];
 
@@ -92,40 +88,43 @@ class ProductTable extends Component {
 
     render(){
             let arr = this.props.devices;
+            // this.consoleMy("arr111=", this.props.devices);
             let table = null;
 
             let tableHead =
                 <thead>
-                <tr>
-                    <td className="idHeader">{arr[0][0]["id"]}</td>
-                    <td className="nameHeader">{arr[0][0]["name"]}</td>
-                    <td className="ratingHeader">{arr[0][0]["rating"]}</td>
-                    <td className="priceHeader">{arr[0][0]["price"]}</td>
-                </tr>
+                    <tr>
+                        <td className="idHeader">{arr[0]["id"]}</td>
+                        <td className="nameHeader">{arr[0]["name"]}</td>
+                        <td className="ratingHeader">{arr[0]["rating"]}</td>
+                        <td className="priceHeader">{arr[0]["price"]}</td>
+                    </tr>
                 </thead>;
 
-            let tableBody = arr.map((el, index) => {
-                return (
-                    arr[index].slice(1).map((val) => {
-                        return (
-                            <tr key={val}>
-                                <td className="id">{val[0]}</td>
-                                <td className="name">{val[1]}</td>
-                                <td className="rating">{val[3]}</td>
-                                <td className="price">{val[2]}</td>
-                            </tr>
-                        );
-                    })
+                let tableBody =
 
-                );
-            });
+                        arr.slice(1).map((el, index) => {
+                        this.consoleMy("arr222=", arr.slice(1));
+                        this.consoleMy("index", index);
+                        return (
+                            arr.slice(1)[index].map(function(val){
+                                return (
+                                    <tr key={val}>
+                                        <td className="id">{val[0]}</td>
+                                        <td className="name">{val[1]}</td>
+                                        <td className="rating">{val[3]}</td>
+                                        <td className="price">{val[2]}</td>
+                                    </tr>
+                                );
+                            }));
+                        });
 
             if (this.props.devices) {
                 table =
                     <table className="productTable">
                         {tableHead}
                         <tbody>
-                        {tableBody}
+                            {tableBody}
                         </tbody>
                     </table>;
             }
@@ -144,7 +143,7 @@ class Devices extends Component {
 		super(props);
 		this.state = {
 		    notebooksList:true,
-            tabletsList:false,
+            tabletsList:true,
             mobilePhonesList:false
 		};
         this.changeCheckbox = this.changeCheckbox.bind(this);
@@ -158,7 +157,25 @@ class Devices extends Component {
 
 
 	render() {
+	    let headerTable = notebooksList[0];
+        let devices2 = [];
+        devices2.push(headerTable);
+        // this.consoleMy("myList=",myList);
+        // let stateSas = this.state;
         let checkState = this.state;
+        // let newArr = this.props.devicesName;
+        Object.keys(checkState).map(function(el){ if(checkState[el]){
+            devices2.push(myList[el].slice(1));
+        } return devices2;
+        // return console.log("xxx",checkState[el]);});
+        // return console.log("devices2",devices2);
+        });
+        // this.consoleMy("Object.keys(this.state)=",Object.keys(this.state));
+        // newArr.map((el,index)=>{if(newArr[index][2]==)});
+        // this.consoleMy("this.props.devicesName=",this.props.devicesName);
+        // let checkState = this.state;
+        // this.consoleMy("aaa=",checkState);
+        // this.consoleMy("notebooksList=",notebooksList);
 		return (
 			<div className="container">
 				<div className="productsName">
@@ -171,7 +188,7 @@ class Devices extends Component {
 					})}
 				</div>
 				<div className="productTable">
-					<ProductTable devices={devices}/>
+					<ProductTable devices={devices2}/>
 				</div>
 			</div>
 		);
