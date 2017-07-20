@@ -34,13 +34,15 @@
 td, tr{
     width: auto;
     padding: 10px;
-    border: 2px solid #888888;
+    border: 1px solid #888888;
     border-collapse: collapse;
     border-spacing: 0;
 }
 
 thead tr:first-child td:first-child {
     border-top-left-radius: 5px;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 thead tr:first-child td:last-child {
@@ -55,13 +57,7 @@ tbody tr:last-child td:last-child {
     border-bottom-right-radius: 5px;
 }
 
-td, tr{
-    width: auto;
-    padding: 10px;
-    border: 1px solid #888888;
-    border-collapse: collapse;
-    border-spacing: 0;
-}
+
 
 table{
     border-collapse: collapse;
@@ -72,6 +68,8 @@ thead{
     background-color: #49636D;
     color: #e2e2e2;
     font-weight: bold;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 .price, .rating, .id{
