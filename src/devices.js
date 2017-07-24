@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+// import StarRatings from "react-star-ratings";
 import "./devices.css";
 
 const notebooksList = [
@@ -55,7 +56,7 @@ class ProductsTable extends Component {
 			sortingName: true,
 			sortingPrice: true,
 			sortingRating: true,
-			// sortedDir
+			column: "",
 			arr: []};
 		this.sortedCol = this.sortedCol.bind(this);
 	}
@@ -68,6 +69,8 @@ class ProductsTable extends Component {
 		let arrForSorting = this.props.devices.slice(1);
 		let state = this.state;
 		let column = event.target.className.toString();
+
+		// state.column = event.target.className.toString();
 
 		if (column === "idHeader") {
 			if (state.sortingID) {
@@ -92,6 +95,7 @@ class ProductsTable extends Component {
             this.setState({sortingID: !this.state.sortingID});
             arrForSorting.unshift(headerTable);
             this.setState({arr: arrForSorting});
+            this.setState({"column":column});
 
 			return arrForSorting;
 		}
@@ -119,6 +123,7 @@ class ProductsTable extends Component {
             this.setState({sortingName: !this.state.sortingName});
             arrForSorting.unshift(headerTable);
             this.setState({arr: arrForSorting});
+            this.setState({"column":column});
 
             return arrForSorting;
 		}
@@ -145,6 +150,7 @@ class ProductsTable extends Component {
             this.setState({sortingRating: !this.state.sortingRating});
             arrForSorting.unshift(headerTable);
             this.setState({arr: arrForSorting});
+            this.setState({"column":column});
 
             return arrForSorting;
         }
@@ -171,29 +177,38 @@ class ProductsTable extends Component {
             this.setState({sortingPrice: !this.state.sortingPrice});
             arrForSorting.unshift(headerTable);
             this.setState({arr: arrForSorting});
+            this.setState({"column":column});
+
+            console.log("this.state=",this.state);
 
             return arrForSorting;
         }
 
+        console.log("this.state=",this.state);
+
 	}
 
 	render(){
-		let arr;
+		let arr, sortDir;
 		let state = this.state;
 		if (state.arr.length === this.props.devices.length){
 			arr = this.state.arr;
+			sortDir = this.state.column;
 		} else{
 			arr = this.props.devices;
+			sortDir = "";
 		}
+
+		console.log("sortDir=",sortDir);
 
 		let table = null;
 		let tableHead =
 					<thead>
 						<tr>
-							<td className="idHeader" onClick={this.sortedCol}>{arr[0]["id"]}</td>
-							<td className="nameHeader" onClick={this.sortedCol}>{arr[0]["name"]}</td>
-							<td className="ratingHeader" onClick={this.sortedCol}>{arr[0]["rating"]}</td>
-							<td className="priceHeader" onClick={this.sortedCol}>{arr[0]["price"]}</td>
+							<td className="idHeader" onClick={this.sortedCol}>{arr[0]["id"]}{sortDir === "idHeader" ? (state.sortingID ? "↑" : "↓") : ""}</td>
+							<td className="nameHeader" onClick={this.sortedCol}>{arr[0]["name"]}{sortDir === "nameHeader" ? (state.sortingName ? "↑" : "↓") : ""}</td>
+							<td className="ratingHeader" onClick={this.sortedCol}>{arr[0]["rating"]}{sortDir === "ratingHeader" ? (state.sortingRating ? "↑" : "↓") : ""}</td>
+							<td className="priceHeader" onClick={this.sortedCol}>{arr[0]["price"]}{sortDir === "priceHeader" ? (state.sortingPrice ? "↑" : "↓") : ""}</td>
 						</tr>
 					</thead>;
 		let tableBody =
@@ -245,8 +260,9 @@ class Devices extends Component {
 	render() {
 	    let devices = [];
 		let checkState = this.state;
-		Object.keys(checkState).map(function(el){if(checkState[el]){myList[el].map(function(dev,index){
-			   if(index!==0){devices.push(myList[el][index]);}});
+		Object.keys(checkState).map(function(el){
+			if(checkState[el]){myList[el].map(function(dev,index){
+			   if(index!==0){devices.push(myList[el][index]);} return devices;});
 		} return devices;});
 
 		devices.unshift(headerTable);
